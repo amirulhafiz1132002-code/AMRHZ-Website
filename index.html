@@ -952,43 +952,50 @@
             </span>
           </div>
 
-
           <div class="terminal-body">
 
-            <form id="terminalForm" class="terminal-form">\n              <div class="terminal-output" id="terminalOutput">
-              <div>
-                AMRHZ.SYS terminal initialized.
+            <form id="terminalForm" class="terminal-form">
+
+              <div class="terminal-output" id="terminalOutput">
+                <div>
+                  AMRHZ.SYS terminal initialized.
+                </div>
+
+                <div>
+                  Type <span class="terminal-command">help</span>
+                  to view available commands.
+                </div>
               </div>
 
-              <div>
-                Type <span class="terminal-command">help</span>
-                to view available commands.
+              <div class="terminal-input-row">
+
+                <span class="terminal-prompt">
+                  amrhz@sys:~$
+                </span>
+
+                <input
+                  id="terminalInput"
+                  type="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  aria-label="Terminal command"
+                >
+
+                <button
+                  id="clearTerminal"
+                  type="button"
+                  class="button secondary"
+                >
+                  Clear
+                </button>
+
               </div>
-            </div>
 
-
-              </div>\n\n            <div class="terminal-input-row">
-
-              <span class="terminal-prompt">
-                amrhz@sys:~$
-              </span>
-
-              <input
-                id="terminalInput"
-                type="text"
-                autocomplete="off"
-                spellcheck="false"
-                aria-label="Terminal command"
-              >
-
-            </div>
+            </form>
 
           </div>
 
         </div>
-
-      </div>
-    </section>
 
 
     <!-- =========================================================
