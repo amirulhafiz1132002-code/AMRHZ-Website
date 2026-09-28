@@ -1,31 +1,12 @@
 /* DEV-001 — Verified Development State Model
  *
+ * State is derived from the DEV-002 evidence registry.
  * This registry is documentary/UI state, not runtime health telemetry.
- * State changes require evidence and should be reviewed against DEV-001.md.
  */
 (function () {
   "use strict";
 
-  var STATE_REGISTRY = [
-    {
-      name: "Development Hub",
-      state: "VERIFIED",
-      evidence: "Implemented website section; current repository contains the feature.",
-      runtime: "STATIC WEBSITE"
-    },
-    {
-      name: "Ideas",
-      state: "PROPOSED",
-      evidence: "Documented concepts; no persistent idea storage is implemented.",
-      runtime: "STATIC"
-    },
-    {
-      name: "Feedback",
-      state: "UNKNOWN",
-      evidence: "Persistent feedback capability is not configured; runtime storage is not evidenced.",
-      runtime: "NOT CONFIGURED"
-    }
-  ];
+  var evidenceRegistry = window.AMRHZ_EVIDENCE_REGISTRY || [];
 
   var STATE_ORDER = [
     "CONCEPT",
@@ -39,6 +20,43 @@
     "DEPRECATED",
     "UNKNOWN"
   ];
+
+  var STATE_REGISTRY = [
+    {
+      name: "Development Hub",
+      state: findState("DEV-001-STATE-REGISTRY", "VERIFIED"),
+      evidence: findResult("DEV-001-STATE-REGISTRY", "Registry evidence unavailable."),
+      runtime: "STATIC WEBSITE"
+    },
+    {
+      name: "Ideas",
+      state: findState("DEV-001-IDEAS", "PROPOSED"),
+      evidence: findResult("DEV-001-IDEAS", "Idea evidence unavailable."),
+      runtime: "STATIC"
+    },
+    {
+      name: "Feedback",
+      state: findState("DEV-001-FEEDBACK", "UNKNOWN"),
+      evidence: findResult("DEV-001-FEEDBACK", "Feedback evidence unavailable."),
+      runtime: "NOT CONFIGURED"
+    }
+  ];
+
+  function findEvidence(id) {
+    return evidenceRegistry.find(function (item) {
+      return item.id === id;
+    });
+  }
+
+  function findState(id, fallback) {
+    var item = findEvidence(id);
+    return item && isValidState(item.state) ? item.state : fallback;
+  }
+
+  function findResult(id, fallback) {
+    var item = findEvidence(id);
+    return item && item.result ? item.result : fallback;
+  }
 
   function isValidState(state) {
     return STATE_ORDER.indexOf(state) !== -1;
@@ -110,23 +128,23 @@
     }
 
     var container = hub.querySelector(".container");
+    var intro = container ? container.querySelector(".section-intro") : null;
 
-    if (!container) {
+    if (!container || !intro) {
       return;
     }
 
-    var intro = container.querySelector(".section-intro");
+    var heading = document.createElement("div");
+    heading.className = "section-heading";
+    heading.innerHTML =
+      "<div class='eyebrow'>DEV-001</div><h3>Verified State Registry</h3>";
 
-    if (intro) {
-      var heading = document.createElement("div");
-      heading.className = "section-heading";
-      heading.innerHTML =
-        '<div class="eyebrow">DEV-001</div><h3>Verified State Registry</h3>';
-
-      container.insertBefore(heading, intro.nextSibling);
-      container.insertBefore(createRegistry(), heading.nextSibling);
-    }
+    container.insertBefore(heading, intro.nextSibling);
+    container.insertBefore(createRegistry(), heading.nextSibling);
   }
+
+  window.AMRHZ_STATE_REGISTRY = STATE_REGISTRY;
+  window.AMRHZ_VALID_STATES = STATE_ORDER;
 
   initialize();
 }());
