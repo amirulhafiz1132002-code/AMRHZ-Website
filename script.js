@@ -91,14 +91,29 @@
   }
 
   function getSystemStatus() {
-    var statusElement = document.querySelector(".status-main strong");
-    var statusDescription = document.querySelector(".status-main p");
-    var status = statusElement ? statusElement.textContent.trim() : "UNAVAILABLE";
-    var description = statusDescription
-      ? statusDescription.textContent.trim()
-      : "No status details available.";
+    var registry = window.AMRHZ_STATE_REGISTRY || {};
+    var evidenceRegistry = window.AMRHZ_EVIDENCE_REGISTRY || [];
 
-    return ["CORE STATUS: " + status, description];
+    var developmentHub = registry.developmentHub;
+    var ideas = registry.ideas;
+    var feedback = registry.feedback;
+
+    var lines = [
+      "WEBSITE STATUS: STATIC / REPOSITORY-BACKED",
+      developmentHub
+        ? "DEVELOPMENT HUB: " + developmentHub.state
+        : "DEVELOPMENT HUB: UNKNOWN",
+      ideas
+        ? "IDEAS: " + ideas.state
+        : "IDEAS: UNKNOWN",
+      feedback
+        ? "FEEDBACK: " + feedback.state
+        : "FEEDBACK: UNKNOWN",
+      "EVIDENCE RECORDS: " + evidenceRegistry.length,
+      "RUNTIME HEALTH: NOT INDEPENDENTLY VERIFIED"
+    ];
+
+    return lines;
   }
 
   function getProjects() {
