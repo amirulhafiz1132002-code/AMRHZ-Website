@@ -28,7 +28,7 @@ The audit does **not** promote runtime capability from static evidence.
 
 | ID | Claim / Surface | Evidence inspected | Support | State interpretation | Limitation | Action |
 |---|---|---|---|---|---|---|
-| D3-01 | Header: ONLINE | `index.html` static header | STATIC_RENDERED | UNKNOWN for runtime health | Static rendering does not prove the service is online | Clarify as static website availability or remove runtime implication |
+| D3-01 | Header: ONLINE | `index.html` static header | STATIC_RENDERED | UNKNOWN for runtime health | Static rendering does not prove runtime health or that the service is online | Clarify as static website availability or remove runtime implication |
 | D3-02 | AMRHZ AI System — ACTIVE | Website description; AMRHZ-AI-13 repository contains runnable Python/API artifacts | REPOSITORY, DOCUMENTARY | DEVELOPMENT | No current runtime/deployment verification for the broader system | Narrow wording or map to evidence before treating ACTIVE as runtime status |
 | D3-03 | AP1 Orchestrator — BUILDING | Website architecture description; AP1-WEB-Console repository documents orchestration concepts | REPOSITORY, DOCUMENTARY | DEVELOPMENT / architecture work | No dedicated orchestrator runtime was verified | Keep as development language with explicit non-runtime limitation |
 | D3-04 | Architecture Core — ACTIVE | Architecture Core repository README and docs | REPOSITORY, DOCUMENTARY | DEVELOPMENT | Repository activity/documentation is not proof of a live runtime | Clarify as active development/documentation |
