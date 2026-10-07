@@ -8,11 +8,11 @@
 
   var PROJECT = {
     name: "AMRHZ-AI-13",
-    state: "DEVELOPMENT",
-    source: "Hugging Face repository + Model Card/source inspection",
+    state: "DEVELOPMENT / PARTIAL",
+    source: "Hugging Face repository + portable runtime/source verification",
     repository: "https://huggingface.co/amrhz13/amrhz-ai-13",
     summary:
-      "Real source artifacts are present, but complete runnable-system verification is still pending."
+      "Real source artifacts and the portable capability-detection layer are verified; complete model runtime verification is still pending."
   };
 
   var EVIDENCE = [
@@ -24,7 +24,7 @@
     {
       state: "VERIFIED",
       label: "Core source artifacts",
-      detail: "Agent, API, AutoPilot, memory and supporting source files are present."
+      detail: "Agent, API, AutoPilot, memory, runtime and supporting source files are present."
     },
     {
       state: "VERIFIED",
@@ -37,33 +37,34 @@
       detail: "brain_v2.csv is present as a repository artifact."
     },
     {
-      state: "PARTIAL",
-      label: "Runtime structure",
-      detail: "Repository inspection found path/documentation mismatches that require reconciliation."
+      state: "VERIFIED",
+      label: "Portable capability-detection layer",
+      detail: "Runtime capability detection for Python, OS, machine, PyTorch, Transformers and Tokenizers is implemented, with regression tests recorded as passing."
     },
     {
       state: "PARTIAL",
-      label: "API contract",
-      detail: "The frontend request shape and backend JSON contract are not currently aligned."
+      label: "Runtime environment / dependency readiness",
+      detail: "Capability detection is implemented, but the current Android environment remains PARTIAL / ENVIRONMENT-BLOCKED because the required model-runtime dependencies are not all available."
     },
     {
       state: "UNKNOWN",
       label: "Complete runtime verification",
-      detail: "End-to-end execution has not yet been verified from the current Hugging Face snapshot."
+      detail: "Real model loading and end-to-end inference have not yet been verified on the target PC environment."
     },
     {
       state: "UNKNOWN",
       label: "Trained model readiness",
-      detail: "Weights, tokenizer and model runtime artifacts were not evidenced in the inspected file tree."
+      detail: "Weights, tokenizer and model runtime artifacts for a trained AMRHZ model were not evidenced as ready."
     }
   ];
 
   var NEXT = [
-    "P0  SECURITY REVIEW",
-    "P1  STRUCTURE RECONCILIATION",
-    "P2  DEPENDENCY VERIFICATION",
-    "P3  RUNTIME VERIFICATION",
-    "P4  HF METADATA"
+    "Portable Runtime",
+    "PC Environment Recovery",
+    "Model Load",
+    "Inference Smoke Test",
+    "PASS",
+    "AMRHZ Transformation"
   ];
 
   function create(tag, className, text) {
